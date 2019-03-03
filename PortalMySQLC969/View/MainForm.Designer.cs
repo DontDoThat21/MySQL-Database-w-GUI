@@ -212,7 +212,7 @@
             this.tableSelectionCBox.Name = "tableSelectionCBox";
             this.tableSelectionCBox.Size = new System.Drawing.Size(121, 21);
             this.tableSelectionCBox.TabIndex = 31;
-            this.tableSelectionCBox.Text = "null";
+            this.tableSelectionCBox.Text = "SELECT DATA!";
             this.tableSelectionCBox.SelectedIndexChanged += new System.EventHandler(this.tableSelectionCBox_SelectedIndexChanged);
             // 
             // descriptionBox

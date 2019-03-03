@@ -37,14 +37,14 @@ namespace PortalMySQLC969
         public MainForm()
         {
             InitializeComponent();
-            tableSelectionHandler();
-            mainDGV.DataSource = GetData(selectFromProducts);
-            SalesTable = InnerJoinAll("Sales");
-            tableSelectionCBox.Text = "Sales"; // 1 of 2
-            Customers = InnerJoinAll("Customers");
-            tableSelectionCBox.Text = "Customers";
-            Products = InnerJoinAll("Products");
-            tableSelectionCBox.Text = "Products";// 2 of 2 These are cleverly populating our background tables up and into memory appropriately. Con: Slower app launch time. Pro: Quicker app responsiveness later
+            //tableSelectionHandler();
+            //mainDGV.DataSource = GetData(selectFromProducts);
+            //SalesTable = InnerJoinAll("Sales");
+            //tableSelectionCBox.Text = "Sales"; // 1 of 2
+            //Customers = InnerJoinAll("Customers");
+            //tableSelectionCBox.Text = "Customers";
+            //Products = InnerJoinAll("Products");
+            //tableSelectionCBox.Text = "Products";// 2 of 2 These are cleverly populating our background tables up and into memory appropriately. Con: Slower app launch time. Pro: Quicker app responsiveness later
             SetTimeCodeLabel();
         }
         private DataTable GetData(string Query)
