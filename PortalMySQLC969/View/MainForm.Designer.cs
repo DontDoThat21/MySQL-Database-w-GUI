@@ -76,7 +76,7 @@
             this.mainDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.mainDGV.Size = new System.Drawing.Size(492, 421);
             this.mainDGV.TabIndex = 0;
-            this.mainDGV.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.MainDGV_CellEnter);
+            this.mainDGV.Click += new System.EventHandler(this.mainDGV_Click);
             this.mainDGV.MouseEnter += new System.EventHandler(this.sendFiltersToBack);
             // 
             // box3

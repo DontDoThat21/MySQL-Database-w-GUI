@@ -649,9 +649,10 @@ namespace PortalMySQLC969
             {
                 query = $"SELECT {tableName[0]} \"{tableName[1]}\", {tableName[2]} \"{tableName[3]}\", {tableName[4]} \"{tableName[5]}\", {tableName[6]} \"{tableName[7]}\" FROM {tableName[8]} " +
                       $"WHERE {tableName[4]} LIKE '%{mrchntTextBox.Text}%' ORDER BY 1;";
-            } // If I'm being honest, this method disgusts me and is only so poor because I didn't know of LINQ when writing this. Tell you what, it works though.
-            // TODO: Refactor this method, using linq. Probably halve the lines of code.
-            // Right now, it's essentially a huge query builder.
+            } // If I'm being honest, this method disgusts me and is only so poor because I wasnt
+            // competent w/ LINQ when writing this. Tell you what, it works though.
+            // TODO: Refactor this method, using linq. Probably would halve the lines of code.
+            // --Right now, it's essentially a huge query builder.--
 
             if (conn.State != ConnectionState.Open)
             {
@@ -663,6 +664,14 @@ namespace PortalMySQLC969
             MySqlDataReader reader = cmd.ExecuteReader();
             data.Load(reader);
             mainDGV.DataSource = data; // set our DGV's source to our new conditionally selected data.
+        }
+
+        private void mainDGV_Click(object sender, EventArgs e)
+        {
+            if (mainDGV.DataSource == null)
+            {
+                MessageBox.Show("Please select a table with the drop down menu.");
+            }
         }
     }
 }
