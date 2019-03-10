@@ -22,6 +22,8 @@ namespace PortalMySQLC969
  */
     public partial class LoginForm : Form
     {
+        public int failedAttempts;
+
         public LoginForm()
         { 
             if(Thread.CurrentThread.CurrentCulture.ToString().Contains("de"))
@@ -78,8 +80,8 @@ namespace PortalMySQLC969
                 MessageBox.Show(GlobalStrings.ConnectionClosed); // Using localization to generate incorrect u/s in english and german.
             }
             reader = cmd.ExecuteReader(); // Effectively querrying our DB.
-                                          // OVERCOMPLICATED series of if statements. They're seriously beau·ti·ful though, don't hurt them.
-                                          //
+
+            // Handles use cases for when empty user/pass fields and login button clicked.
             if (userTextBox.Text == "" || passwordTextBox.Text == "") // Check if textBox' are empty.
             {
                 if (userTextBox.Text == "" && passwordTextBox.Text != "")
@@ -104,20 +106,30 @@ namespace PortalMySQLC969
                 MessageBox.Show(GlobalStrings.IncorrectUser);
             }
 
-            while (reader.Read()) // While there is something left to read (a row I believe) this continues reading, execing once per row. If it fetches something (a row), it should read.
+            while (reader.Read()) // While there is something left to read, it fetches data (a row); it will read and exec once per row.
             {
                 File.AppendAllText("logins.txt", u + " logged in at " + DateTime.Now.ToString() + " " + TimeZoneInfo.Local.Id.ToString() + ";" + Environment.NewLine);
-                //MessageBox.Show(GlobalStrings.WelcomeBack + $" {u}! \n The next scheduled appointment\n is at: {earliestDate},\n which is {hours} hours \n and {minutes} minutes from now. \n\n\n THIS IS RUBRIC H");
                 this.Hide();
                 MainForm mf = new MainForm();
-                mf.Closed += (s, args) => this.Close(); // This lambda expression is an explicit event set to close 'this' form (which was hidden) when mf is closed. America is still the best, vote 11/06/2018
+                mf.Closed += (s, args) => this.Close();
                 mf.Show();
             }
             conn.Close();
         }
         private void IncorrectAnything(string username)
         {
-            File.AppendAllText("logins.txt", username + " failed to login at " + DateTime.Now.ToString() + " " + TimeZoneInfo.Local.Id.ToString() + ";" + Environment.NewLine);
+            failedAttempts++;
+            if (failedAttempts>2)
+            {
+                MessageBox.Show("Too many failed logins, please try again later.");
+                Application.Exit();
+                // not currently logging failed attempts.
+            }
+            else
+            {
+                File.AppendAllText("logins.txt", username + " failed to login at " + DateTime.Now.ToString() + " " + TimeZoneInfo.Local.Id.ToString() + ";" + Environment.NewLine);
+            }
         }
+
     }
 }
